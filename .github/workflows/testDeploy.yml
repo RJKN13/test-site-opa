@@ -5,8 +5,26 @@ on:
     branches: ["main", "preLive", "dev"] # we can add more branches if needed such as "preLive", "dev"
 
 jobs:
+  cypress_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm ci
+      - name: Start the server
+        run: nohup npm run start &
+      - name: Install Cypress dependencies
+        run: cd cypress & npm ci
+      - name: Run cypress
+        run: npm run test
+
   deploy:
-    runs-om: ubuntu-latest
+    needs: cypress_test
+    runs-on: ubuntu-latest
     steps:
       - name: Doing a deploy
         uses: appleboy/ssh-action@v0.1.10
