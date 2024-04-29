@@ -2,7 +2,7 @@ name: Test Deploy
 
 on:
   push:
-    branches: ["main", "preLive", "dev"] # we can add more branches if needed such as "preLive", "dev"
+    branches: ["main"] # we can add more branches if needed such as "preLive", "dev"
 
 jobs:
   cypress_tests:
@@ -18,7 +18,7 @@ jobs:
       - name: Start the server
         run: nohup npm run start &
       - name: Install Cypress dependencies
-        run: cd cypress & npm ci
+        run: cd ./cypress & npm ci
       - name: Run cypress
         run: npm run test
 
