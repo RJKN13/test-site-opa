@@ -2,7 +2,9 @@ name: Test Deploy
 
 on:
   push:
-    branches: ["main"] # we can add more branches if needed such as "preLive", "dev"
+    branches: ["main", "dev"] # we can add more branches if needed such as "preLive"
+  pull_request:
+    branchs: ["main"]
 
 jobs:
   cypress_tests:
